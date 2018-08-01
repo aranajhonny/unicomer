@@ -14,19 +14,18 @@ class CreatePaymentsTable extends Migration {
 		Schema::create('payments', function (Blueprint $table) {
 			$table->increments('id');
 			$table->string('contract')->unique();
-			$table->string('client_acct_num');
-			$table->foreign('client_acct_num')->references("acct_num")->on("clients");
-			$table->string('purchase_date');
-			$table->string('total_sale');
-			$table->string('date_of_last_payment');
-			$table->string('present_bal');
-			$table->string('paid_off_balance');
-			$table->string('term');
-			$table->string('installment');
-			$table->string('total_last_payment');
-			$table->string('amt_past_due');
-			$table->string('late_fee');
-			$table->string('minimun_payment');
+			$table->string('client_acct_num')->nullable();
+			$table->string('purchase_date')->nullable();
+			$table->string('total_sale')->nullable();
+			$table->string('date_of_last_payment')->nullable();
+			$table->string('present_bal')->nullable();
+			$table->string('paid_off_balance')->nullable();
+			$table->string('term')->nullable();
+			$table->string('installment')->nullable();
+			$table->string('total_last_payment')->nullable();
+			$table->string('amt_past_due')->nullable();
+			$table->string('late_fee')->nullable();
+			$table->string('minimun_payment')->nullable();
 			$table->timestamps();
 		});
 	}

@@ -26,10 +26,9 @@ class ClientController extends Controller {
 			'clients' => 'required',
 		]);
 
-		//$path = $request->file('clients')->path();
 		$path = Storage::disk('local')->put('file', $request->file('clients'));
 		ProcessCsv::dispatch($path);
-		//return back()->with('success', 'Procesing file...');
+		return back()->with('success', 'Procesing file...');
 	}
 
 	/**

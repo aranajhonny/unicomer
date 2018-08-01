@@ -13,20 +13,20 @@ class CreateClientsTable extends Migration {
 	public function up() {
 		Schema::create('clients', function (Blueprint $table) {
 			$table->increments('id');
-			$table->string('acct_num')->unique();
-			$table->string('name');
-			$table->string('last_name');
-			$table->string('state');
-			$table->string('home_address');
-			$table->string('home_phone');
-			$table->string('cell_phone');
-			$table->string('ref_1_name');
-			$table->string('ref_1_phone');
-			$table->string('ref_2_name');
-			$table->string('ref_2_phone');
-			$table->string('ref_3_name');
-			$table->string('ref_3_phone');
-			$table->string('antiguedad');
+			$table->string('acct_num')->nullable();
+			$table->string('name')->nullable();
+			$table->string('last_name')->nullable();
+			$table->string('state')->nullable();
+			$table->string('home_address')->nullable();
+			$table->string('home_phone')->nullable();
+			$table->string('cell_phone')->nullable();
+			$table->string('ref_1_name')->nullable();
+			$table->string('ref_1_phone')->nullable();
+			$table->string('ref_2_name')->nullable();
+			$table->string('ref_2_phone')->nullable();
+			$table->string('ref_3_name')->nullable();
+			$table->string('ref_3_phone')->nullable();
+			$table->string('antiguedad')->nullable();
 			$table->timestamps();
 		});
 	}
