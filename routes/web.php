@@ -9,7 +9,7 @@
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
 
 Route::post('login', 'Auth\LoginController@login');
@@ -17,15 +17,17 @@ Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/', function () {
-    return view('welcome');
+	return redirect()->route("login");
 });
 
 Route::get('/client', function () {
-    return view('home');
+	echo "client";
 });
 
-Route::get('/admin', function () {
-    return view('home');
+Route::prefix("/admin")->group(function () {
+	Route::get("/", function () {
+		return redirect()->route("import.clients");
+	});
+	Route::get('/import-client-view', 'ClientController@importClientView')->name('import.clients');
+	Route::post('/import', 'ClientController@importFile');
 });
-
-Route::get('/home', 'HomeController@index')->name('home');

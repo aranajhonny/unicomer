@@ -6,60 +6,53 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 
-class LoginController extends Controller
-{
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
+class LoginController extends Controller {
+	/*
+		    |--------------------------------------------------------------------------
+		    | Login Controller
+		    |--------------------------------------------------------------------------
+		    |
+		    | This controller handles authenticating users for the application and
+		    | redirecting them to your home screen. The controller uses a trait
+		    | to conveniently provide its functionality to your applications.
+		    |
+	*/
 
-    use AuthenticatesUsers;
+	use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
+	/**
+	 * Where to redirect users after login.
+	 *
+	 * @var string
+	 */
+	protected $redirectTo = '/';
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
-    }
+	/**
+	 * Create a new controller instance.
+	 *
+	 * @return void
+	 */
+	public function __construct() {
+		$this->middleware('guest')->except('logout');
+	}
 
+	protected function credentials(Request $request) {
+		$field = filter_var($request->get($this->username()), FILTER_VALIDATE_EMAIL)
+		? $this->username()
+		: 'username';
 
-    protected function credentials(Request $request)
-    {
-        $field = filter_var($request->get($this->username()), FILTER_VALIDATE_EMAIL)
-            ? $this->username()
-            : 'username';
+		return [
+			$field => $request->get($this->username()),
+			'password' => $request->password,
+		];
+	}
 
-        return [
-            $field => $request->get($this->username()),
-            'password' => $request->password
-         ];
-    }
-
-    public function redirectPath()
-    {
-        if (\Auth::check() && \Auth::user()->role == '1') {
-            return '/admin';
-        }
-
-        elseif (\Auth::check() && \Auth::user()->role == '0') {
-            return '/client';
-        }
-    }
+	public function redirectPath() {
+		if (\Auth::check() && \Auth::user()->role == '1') {
+			return '/admin';
+		} elseif (\Auth::check() && \Auth::user()->role == '0') {
+			return '/client';
+		}
+	}
 
 }
